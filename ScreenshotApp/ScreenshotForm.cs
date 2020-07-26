@@ -9,6 +9,8 @@ namespace ScreenshotApp
 {
     public partial class ScreenshotForm : Form
     {
+        const string DOC_TEMPLATE = "ScreenshotDocument.cs.docx";
+
         public ScreenshotForm()
         {
             InitializeComponent();
@@ -42,9 +44,19 @@ namespace ScreenshotApp
 
         private void bt_save_Click(object sender, EventArgs e)
         {
-            var templatedocument = DocumentFactory.Create(@"ScreenshotDocument.cs.docx", Program.sc);
-            var outputdocument = string.IsNullOrWhiteSpace(tb_filename.Text) ? "ScreenshotDocument_" + DateTime.Now.ToString("ddMMyyyyHHMMss") + ".docx" : tb_filename.Text + ".docx";
+            if (Program.sc.ImageFiles.Count == 0)
+            {
+                Program.sc.Status = "Nothing to save";
+                return;
+            }
+
+            var templatedocument = DocumentFactory.Create(DOC_TEMPLATE, Program.sc);
+            var outputdocument = string.IsNullOrWhiteSpace(tb_filename.Text)
+                                    ? "ScreenshotDocument_" + DateTime.Now.ToString("ddMMyyyyHHMMss") + ".docx"
+                                    : tb_filename.Text + ".docx";
+
             templatedocument.Generate(outputdocument);
+
             Program.sc.Status = "Document Saved";
             Process.Start(outputdocument);
         }

@@ -8,6 +8,8 @@ class InterceptKeys
 {
     private const int WH_KEYBOARD_LL = 13;
     private const int WM_KEYDOWN = 0x0100;
+    private const int EM_SETCUEBANNER = 0x1501;
+        
     private static LowLevelKeyboardProc _proc = HookCallback;
     private static IntPtr _hookID = IntPtr.Zero;
     private static Form FormObject;
@@ -15,6 +17,8 @@ class InterceptKeys
     {
         _hookID = SetHook(_proc);
         FormObject = new ScreenshotForm();
+        SendMessage(FormObject.Controls["tb_filename"].Handle, EM_SETCUEBANNER, 0, "Enter File Name");
+
         Application.Run(FormObject);
         UnhookWindowsHookEx(_hookID);
     }
@@ -48,6 +52,9 @@ class InterceptKeys
 
         return CallNextHookEx(_hookID, nCode, wParam, lParam);
     }
+
+    [DllImport("user32.dll", CharSet = CharSet.Auto)]
+    private static extern Int32 SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)]string lParam);
 
     [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
     private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);

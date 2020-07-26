@@ -34,11 +34,12 @@
             this.bt_save = new System.Windows.Forms.Button();
             this.tb_filename = new System.Windows.Forms.TextBox();
             this.bt_close = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // bt_Start
             // 
-            this.bt_Start.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.bt_Start.BackColor = System.Drawing.Color.LightCyan;
             this.bt_Start.Font = new System.Drawing.Font("Tw Cen MT Condensed Extra Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_Start.Location = new System.Drawing.Point(13, 19);
             this.bt_Start.Name = "bt_Start";
@@ -70,12 +71,12 @@
             // 
             // bt_save
             // 
-            this.bt_save.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.bt_save.BackColor = System.Drawing.Color.LightCyan;
             this.bt_save.Font = new System.Drawing.Font("Tw Cen MT Condensed Extra Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_save.Location = new System.Drawing.Point(328, 19);
             this.bt_save.Name = "bt_save";
             this.bt_save.Size = new System.Drawing.Size(75, 25);
-            this.bt_save.TabIndex = 3;
+            this.bt_save.TabIndex = 2;
             this.bt_save.Text = "Save";
             this.bt_save.UseVisualStyleBackColor = false;
             this.bt_save.Click += new System.EventHandler(this.bt_save_Click);
@@ -87,7 +88,7 @@
             this.tb_filename.Location = new System.Drawing.Point(158, 20);
             this.tb_filename.Name = "tb_filename";
             this.tb_filename.Size = new System.Drawing.Size(164, 22);
-            this.tb_filename.TabIndex = 4;
+            this.tb_filename.TabIndex = 1;
             // 
             // bt_close
             // 
@@ -99,16 +100,27 @@
             this.bt_close.Location = new System.Drawing.Point(397, 2);
             this.bt_close.Name = "bt_close";
             this.bt_close.Size = new System.Drawing.Size(15, 15);
-            this.bt_close.TabIndex = 5;
+            this.bt_close.TabIndex = 3;
             this.bt_close.UseVisualStyleBackColor = false;
             this.bt_close.Click += new System.EventHandler(this.bt_close_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(16, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(125, 12);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Press F8 to take screenshots";
             // 
             // ScreenshotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.BackColor = System.Drawing.Color.LightGreen;
             this.ClientSize = new System.Drawing.Size(415, 90);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.bt_close);
             this.Controls.Add(this.tb_filename);
             this.Controls.Add(this.bt_save);
@@ -131,6 +143,7 @@
         private System.Windows.Forms.Button bt_save;
         private System.Windows.Forms.TextBox tb_filename;
         private System.Windows.Forms.Button bt_close;
+        private System.Windows.Forms.Label label1;
     }
 }
 
