@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.IO;
 
 namespace ScreenshotApp
 {
@@ -18,7 +17,7 @@ namespace ScreenshotApp
             Program.sc.Status = "Screenshot Taken";
 
             var image = ScreenCapture.CaptureActiveWindow();
-            var imagename = string.Format("{0}snippetsource_{1}.jpg", Path.GetTempPath(),Program.sc.ImageFiles.Count + 1);
+            var imagename = string.Format("{0}screenshot_{1}.jpg", Path.GetTempPath(),Program.sc.ImageFiles.Count + 1);
             image.Save(imagename, ImageFormat.Jpeg);
             Program.sc.ImageFiles.Add(imagename);
             Console.WriteLine(imagename);

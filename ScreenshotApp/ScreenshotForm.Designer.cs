@@ -129,7 +129,11 @@
             this.Controls.Add(this.bt_Start);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ScreenshotForm";
+            this.Opacity = 0.7D;
             this.Text = "Screenshot Helper";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ScreenshotForm_MouseDown);
+            this.MouseEnter += new System.EventHandler(this.ScreenshotForm_MouseEnter);
+            this.MouseLeave += new System.EventHandler(this.ScreenshotForm_MouseLeave);
             this.ResumeLayout(false);
             this.PerformLayout();
 

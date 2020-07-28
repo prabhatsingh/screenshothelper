@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace ScreenshotApp
@@ -11,6 +12,8 @@ namespace ScreenshotApp
     public partial class ScreenshotForm : Form
     {
         const string DOC_TEMPLATE = "ScreenshotDocument.cs.docx";
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int HT_CAPTION = 0x2;
 
         public ScreenshotForm()
         {
@@ -88,6 +91,31 @@ namespace ScreenshotApp
         {
             Program.sc.DeleteImages();
             Application.Exit();
+        }
+
+        private void ScreenshotForm_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+
+        [DllImport("user32.dll")]
+        private static extern bool ReleaseCapture();
+        
+        [DllImport("user32.dll")]
+        private static extern Int32 SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+        private void ScreenshotForm_MouseEnter(object sender, EventArgs e)
+        {
+            this.Opacity = 1;
+        }
+
+        private void ScreenshotForm_MouseLeave(object sender, EventArgs e)
+        {
+            this.Opacity = .7;
         }
     }
 }
