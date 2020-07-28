@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ScreenshotApp
@@ -52,13 +53,35 @@ namespace ScreenshotApp
 
             var templatedocument = DocumentFactory.Create(DOC_TEMPLATE, Program.sc);
             var outputdocument = string.IsNullOrWhiteSpace(tb_filename.Text)
-                                    ? "ScreenshotDocument_" + DateTime.Now.ToString("ddMMyyyyHHMMss") + ".docx"
-                                    : tb_filename.Text + ".docx";
+                                    ? "ScreenshotDocument_" + DateTime.Now.ToString("ddMMyyyyHHMMss")
+                                    : tb_filename.Text;
 
-            templatedocument.Generate(outputdocument);
+            string outputpath = "";
+
+            using(SaveFileDialog savediag = new SaveFileDialog())
+            {
+                savediag.FileName = outputdocument;
+                savediag.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                savediag.Title = "Save Screenshot Document";
+                savediag.CheckFileExists = false;
+                savediag.CheckPathExists = true;
+                savediag.DefaultExt = "docx";
+                savediag.Filter = "Microsoft Word Document (*.docx)|*.docx";                
+                savediag.RestoreDirectory = true;
+
+                if (savediag.ShowDialog() == DialogResult.OK)
+                    outputpath = savediag.FileName;
+                else
+                {
+                    Program.sc.Status = "Save Canceled";
+                    return;
+                }
+            }
+
+            templatedocument.Generate(outputpath);
 
             Program.sc.Status = "Document Saved";
-            Process.Start(outputdocument);
+            Process.Start(outputpath);
         }
 
         private void bt_close_Click(object sender, EventArgs e)
